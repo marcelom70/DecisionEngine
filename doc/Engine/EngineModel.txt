@@ -1,0 +1,12 @@
+Asserções sobre os elementos do Engine de decisão:
+--------------------------------------------------
+
+- Existe uma gama limitada de operadores, sendo os seus tipos: aritmético, lógico e de comparação.
+- Todo operando deve ser tipado, sendo que seus tipos precisam contemplar todas as possibilidades fundamentais.
+- Quando um operando for do tipo booleano, ele deve permitir duas relações de saída (true e false)
+- Toda operação deve conter obrigatoriamente um operador e no mínimo um e no máximo dois operandos.
+- Verificar a possibilidade de tratar o sinal "dois pontos" (:) como um operador de atribuição.
+- A própria extração do valor de um campo do json será uma operação. Ela deverá ser composta por um operando, que consiste na referência ao campo do json. O operador deverá executar SelectToken contra o json passando a string que é o operando. Nesse momento, o valor do campo já deve estar devidamente tipado e formatado para toda e qualquer validação que se faça necessária.
+- Existem conceitualmente três tipos de operações: o de extração de atributo de negócio, o de operações utilizando valores e o de atribuição de atributo de negócio. O primeiro e o último utilizam invariavelmente o SelectToken.
+- Apenas o tipo booleano deve demandar dois relacionamentos de saída, o Yes e o No. 
+
