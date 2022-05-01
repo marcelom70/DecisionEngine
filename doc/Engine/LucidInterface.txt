@@ -1,0 +1,49 @@
+Problemas já previstos para implementação na geração da política:
+
+Quando algo é mexido, os ids são mantidos? - Ok, isso não será problema.
+Apenas os custom shapes (My saved shapes) podem ser utilizados. - Ok 
+Definir os custom shapes necessários para cobrir todas as necessidades (Process, Decision, terminator). - Ok 
+A descrição (Text Area) precisa conter uma descrição com um dois operandos e um operador. - Ok
+Quando é colocada uma quebra de linha na descrição do shape, é adicionado aspas com a quebra dentro. A leitura pura e simples do arquivo linha a linha pode gerar dados inconsistentes se não for tratada. - Acredito que podemos evitar qualquer possibilidade de quebra de linha, impedindo que o usuário faça isso. Se ele fizer, vai dar erro de execução e ponto final. -  Ok 
+Encontrar uma forma de representar condições compostas. !!!
+Encontrar uma forma de representar ações com múltiplas operações. !!!
+Quando houver múltiplas condições, encontrar uma forma de representar operadores lógicos (precisa ser confortável e segura).
+Talvez seja necessário criar alguns elementos (shapes) específicos para elementos como "Decisão" (recusa, aprovação, derivação). - Ok 
+Encontrar uma forma de representar um elemento de "link", que remeta a outra parte do fluxo. - Ok, elemento merge.
+Dilema: como fazer reutilização de elementos (operações) em diagramas distintos?
+Encontrar uma forma de mascarar dados que precisam ser customizados na exibição (por exemplo, quando vai se referir a número de proposta). Uma proposta talvez seja criar uma convenção para intercalar algum elemento existente em Atributos de negócio, apenas. Dessa forma, garante-se a consistência.
+Encontrar um jeito de mascarar determinadas descrições, de modo a encapsular comportamentos que não são necessários de serem vistos pelo usuário. (por exemplo, no shape "Recusa", apareceria apenas a descrição "Recusa", porém, por trás, haveria outras atribuições) - Ok 
+Encontrar uma forma de representar o json de entrada e de saída, com suas classes e atributos. - Ok, estará em Dados.
+O Lucid tem a habilidade de permitir a inclusão de atributos custom, porém na hora de exportar, ele cria uma coluna para todos os elementos exportados, com valor vazio. Dessa forma, esse recurso precisa ser usado com parcimônia e, quando usado, utilizado de um padrão. Isso pq conforme os testes que fiz, se o atributo for mantido com o mesmíssimo nome quando replicado para Custom Shapes, o Lucid entende que se trata da mesma coisa e importa na mesma coluna. Ademais, isso é corretamente replicado quando se cria um agrupamento de shapes, o que é excelente.
+Encontrar uma forma de resolver o elemento "Merge". - Ok, será usada uma customização do elemento "Junction". Quando por criado um objeto "Custom Junction", é preciso garantir via consistência que a referência exista.
+
+Asserções sobre os padrões para edição do fluxo no Lucid:
+---------------------------------------------------------
+
+- Todos os elementos que devem ser utilizados na edição do fluxo precisam estar numa "Custom Shape Library"
+- Se o processo de absorção do CSV encontrar algum elemento desconhecido solto, deve apresentar um alerta não impeditivo. Se não estiver solto, participando do fluxo, apresenta alerta impeditivo.
+- Todo o fluxo deve ser iniciado com um "ponto de entrada" e deve terminar com um "ponto de saída", ambos com  shapes custom e únicos no fluxo. Ademais, esses dois elementos não podem ficar "soltos" no fluxo. Alerta impeditivo.
+- Qualquer arrow que não tiver origem, destino ou ambos deve ser ignorado (não absorvido) e deve apresentar um alerta não impeditivo.
+- Qualquer shape de decisão precisa ter duas saídas: true ou false, qualquer coisa diferente, apresentar alerta impeditivo.
+- Quando houver a necessidade de uma atribuição que pode ser alterada pelo usuário, é preciso certificar-se de que a parte que não pode ser alterada seja mantida em negrito. Negrito seria uma espécie de "palavra reservada".
+- Quando houver a necessidade de uma "intercalação" de algum valor, estudar uma forma de notação simples e efetiva.
+- Convencionar uma notação que "entenda" milhares e milhões, possivelmente um "k" ou "m" (case insensitive) imediatamente após um número dentro de uma operação.
+- Pensar em elementos para determinação de constantes (com operações de atribuição) que podem ser referenciadas por todo o diagrama. O usuário poderá adicionar novas constantes a partir também de um elemento do "Custom Shape Library". O Engine irá validar se já não existe uma constante com o mesmo nome (case insensitive).
+- Os conectores entre o atributo de negócio e sua referência dentro dos decisores ou descrições devem ser feitos na forma referência "fraca", ie., mediante o uso da descrição constante do shape Atributo Negocio.
+
+Tarefas a serem feitas:
+-----------------------
+
+- Criação de template - Ok 
+- Criação de Custom Shape Library. - Ok 
+- Criação de um atributo custom padrão chamado "Dados". É um campo genérico, quem precisar dele o usa.
+- Conteúdo da CSL:
+	Custom Decision
+	Custom Terminator
+	Custom Process
+	Parametro texto
+	Parametro numerico
+	Atributo Negocio (tipado?) (campo Dados traz a string a ser executada no SelectToken)
+	
+	
+

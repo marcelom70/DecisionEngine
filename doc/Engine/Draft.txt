@@ -1,0 +1,69 @@
+{
+	"campo": "123"
+}
+
+
+(a == 10 & b > 2)
+
+int operador int
+int operador int
+booleano operador booleano
+
+Funcionalidades
+---------------
+configurador de regras
+simulador de regras
+motor de regras
+107.698.718-44
+Regras de formatação (normalmente, ligado aos crawlers)
+Encontrar uma forma convergente, possivelmente
+
+Regras de decisão (utilizadas pelo motor de regras)
+
+parametros
+
+considerar numerico e string (comparação alfabética, por similaridade ou por regular expression)
+aninhamento de regras
+
+Operadores:
+-----------
+String:
+regular expression
+equals
+
+Numeric:
+
+Date:
+between
+
+
+Detalhamento da solução:
+-------------------------
+
+Elementos de execução de regras:
+- Operação: é a menor unidade de regra, indivisível, formada essencialmente por um ou dois operandos e um operador.
+- Operadores: pode ser de dois tipos, unário e binário. Engloba operadores lógicos e matemáticos.
+- Operando: pode ser um atributo, um parâmetro ou um valor hard coded. Pensar melhor. São tipados.
+- Retorno: tipado, pode ser um booleano, uma string, um numérico, uma data.
+
+Para simular operações de mesmo nível, há as hipóteses:
+- sequência de execução.
+- nível de execução. ex.: (operação1 & operação2) estão no mesmo nível, embora respeitem tbm uma sequência. Nesse momento, o operador lógico "&" deve estar configurado de alguma forma.
+- fluxo de execução: pode ser uma saída final
+
+Modelagem:
+----------
+
+Policy
+Operation (Id, idFirstOperand not null, IdOperator not null, idSecondOperand null)
+Operand (Id, Name, Type, Origin, value)
+Operator (Id, Name, Type)
+
+Validações e consistências no crud:
+-----------------------------------
+
+Ao selecionar um tipo de dados, a informação de valor passada para a operação, caso seja constante, precisa ser condizente.
+Existência de uma operação idêntica (visando a reuitilização)
+Exclusão e/ou desativação pode solicitar confirmação caso a operação/política seja utilizada em mais de um lugar (ativo ou inativo)
+Comparação de tipos diferentes pode gerar clash, enviar warning
+Identificar associação cíclica.
